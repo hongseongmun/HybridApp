@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid black" >
+
+    </canvas>
+  </body>
+  <script type="text/javascript">
+    var can = document.getElementById("canvas");
+    var ctx = can.getContext("2d");
+
+      ctx.fillStyle = "rgb(50, 200, 50)";
+      ctx.fillRect(200,200,60,60);
+      ctx.fill();
+
+      canvas.onclick =  function(event){
+        var rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+          ctx.fillStyle = "rgb(100, 0, 0)";
+          ctx.fill();
+
+      }
+
+
+  </script>
+</html>
