@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid black" >
+    </canvas>
+  </body>
+  <script type="text/javascript">
+    var can = document.getElementById("canvas");
+    var ctx = can.getContext("2d");
+
+      ctx.fillStyle = "rgb(50, 200, 50)";
+      ctx.fillRect(200,200,60,60);
+      ctx.fill();
+
+      can.onclick =  function(event){
+        const x = event.clientX - can.offsetLeft;
+        const y = event.clientY - can.offsetTop;
+
+        var r =  Math.floor(Math.random()*100);
+        var g = Math.floor(Math.random()*100);
+        var b = Math.floor(Math.random()*100);
+
+        console.log(x,y);
+        // ctx.fillStyle = "rgb(100, 0, 0)";
+        if((x <= 300 && y <= 300) && (x >=200 &&y >= 200))
+{
+          ctx.fillStyle = `rgb(
+        ${Math.floor(r)},
+        ${Math.floor(g)},
+        ${Math.floor(b)}`;
+          ctx.fillRect(200,200,60,60);
+          ctx.fill();
+
+      }
+}
+
+  </script>
+</html>
