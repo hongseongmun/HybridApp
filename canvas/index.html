@@ -17,14 +17,24 @@
       ctx.fillRect(200,200,60,60);
       ctx.fill();
 
-      canvas.onclick =  function(event){
-        var rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+      can.onclick =  function(event){
+        const x = event.clientX - can.offsetLeft;
+        const y = event.clientY - can.offsetTop;
 
-          ctx.fillStyle = "rgb(100, 0, 0)";
+        var r =  Math.floor(Math.random()*100);
+        var g = Math.floor(Math.random()*100);
+        var b = Math.floor(Math.random()*100);
+
+        console.log(x,y);
+        // ctx.fillStyle = "rgb(100, 0, 0)";
+        if((x <= 300 && y <= 300) ||  (x >=200, y >= 200))
+
+          ctx.fillStyle = `rgb(
+        ${Math.floor(r)},
+        ${Math.floor(g)},
+        0${Math.floor(b)}`;
+          ctx.fillRect(200,200,60,60);
           ctx.fill();
-
       }
 
 
