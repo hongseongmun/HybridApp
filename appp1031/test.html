@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <!--뷰개체 생성하여 사용하기위해  먼저 선언-->
+    <script src="https://unpkg.com/vue@3"></script>
+    <div id="app">
+        <button @click="loveCount++;">고백하기</button>
+        <!--{}은 배열 {{}}은 머스태시-->
+        <p>{{boy}}이 {{girl}}에게 <b v-html="style">고백</b>했다가....{{loveCount}}번 차였다 ㅋㅋ</p>
+    </div>
+    <!--하나로 합치는 것을 mount마운트라고 함-->
+    <script>
+        const {createApp} = Vue;
+        createApp({
+            data(){
+                return{
+                    boy: "그녀석",
+                    girl: "그녀",
+                    loveCount: 0,
+                    style:"<span style=color:red;>고백</span>"
+              }
+            }, mounted(){
+                console.log("마운트했쪙");
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
