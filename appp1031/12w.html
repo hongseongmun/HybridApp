@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <!--grid-template-columns: 1fr 1fr 1fr 1fr 가로 비율을 1대 1대 1대 1로 설정하는 태그 -->
+      <!--grid-template-rows: 1fr 1fr 1fr 1fr; 세로 비율을 1대 1대 1대 1로 설정하는 태그-->
+    <style>
+        #app
+        {
+            width: 600px;
+            height: 600px;
+            background-color: #ddffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border: 1px solid #ddddff;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+      
+        .inapp
+        {
+            border-radius: 10px;
+            border:1px solid #ffdde5;
+            background-color: #ddeeff;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+    <div id="app">
+        <!--v-for가 div문을 반복 실행시킴 그러면 div가 인스턴스 쉐이크가 되어 생성되는거다 -->
+        <!--v-for문은 무조건 1부터 시작한다. index in divList는 index값을 1부터 넣어주겠다 divList값만큼-->
+        <div class="inapp" v-for="index in divList">{{index}}</div>
+    </div>
+    <script>
+        const{createApp} = Vue;
+        createApp({
+            data(){
+                return{
+                    divList: 16
+                }
+            }, mounted(){
+                console.log("app 마운트 성공");
+            }
+            }).mount("#app");
+    </script>
+</body>
+<script></script>
+</html>
