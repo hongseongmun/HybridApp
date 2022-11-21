@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <!--grid-template-columns: 1fr 1fr 1fr 1fr 가로 비율을 1대 1대 1대 1로 설정하는 태그 -->
+      <!--grid-template-rows: 1fr 1fr 1fr 1fr; 세로 비율을 1대 1대 1대 1로 설정하는 태그-->
+    <style>
+        #app
+        {
+            width: 600px;
+            height: 600px;
+            background-color: #ddffff;
+            position: relative;
+            border: 1px solid #ddddff;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+      
+        .inapp
+        {
+            border-radius: 10px;
+            border:1px solid #ffdde5;
+            background-color: #ddeeff;
+            text-align: center;
+            line-height: 2;
+            font-size: 70px;
+            font-family: cursive;
+            border-radius: 10px;
+        }
+        .box
+        {
+            position:absolute;
+            left: 20px;
+            top: 20px;
+            width: 120px;
+            height: 120px;
+            background-color: brown;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 1.6;
+            font-size: 70px;
+            font-family: cursive;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+    <center>
+    <div id="app">
+        <!--v-for가 div문을 반복 실행시킴 그러면 div가 인스턴스 쉐이크가 되어 생성되는거다 -->
+        <!--v-for문은 무조건 1부터 시작한다. index in divList는 index값을 1부터 넣어주겠다 divList값만큼-->
+        <div class="inapp" v-for="index in divList">{{index}}</div>
+            <div class="box" style="display: block"> {{value}}</div>
+        </center>
+    </div>
+    <script>
+        const{createApp} = Vue;
+        createApp({
+            data(){
+
+                return{
+                    divList: 16,
+                    value: 2
+                }
+            },
+            mounted(){
+                console.log("app 마운트 성공");
+            }
+        }).mount("#app");
+
+<!--키 입력 log 출력-->
+function keyArrowRight(){
+    console.log("Right Pressed.");
+    let blocks = document.getElementsByClassName("box");
+    for (let i = 0; i < blocks.length; i++){
+        blocks[i].style.left = 20;
+        console.log(blocks[i].style.left);
+        if(blocks[i].style.left == '20px')
+        {
+            //이찬희질문사항
+            var a = blocks[i].style.left;
+            a = Number(a.replace(/px$/, ''));
+            console.log(a);
+            a += 450;
+            console.log(a);
+            blocks[i].style.left = a; 
+        }       
+    }
+}
+
+function keyArrowLeft(){
+    console.log("Left Pressed.");
+    let blocks = document.getElementsByClassName("box");
+    for (let i = 0; i < blocks.length; i++){
+        if(blocks[i].style.left == 470)
+            blocks[i].style.left -= 450;        
+    }
+}
+function keyArrowUp(){
+    console.log("Up Pressed.");
+    let blocks = document.getElementsByClassName("box");
+    for (let i = 0; i < blocks.length; i++){
+        blocks[i].style.top = 20;        
+    }
+}
+function keyArrowDown(){
+    console.log("Down Pressed.");
+    let blocks = document.getElementsByClassName("box");
+    for (let i = 0; i < blocks.length; i++){
+        blocks[i].style.top = 470;        
+    }
+}
+
+function keylog(e){
+    console.log(e.key);
+    switch(e.key){
+        case 'ArrowRight':
+            keyArrowRight();
+            break;
+        case 'ArrowLeft':
+            keyArrowLeft();
+            break;
+        case 'ArrowUp':
+            keyArrowUp();
+            break;
+        case 'ArrowDown':
+            keyArrowDown();
+            break;
+        default:
+            break;
+    }
+}
+
+window.onkeydown = keylog;
+    </script>
+</body>
+</html>
