@@ -5,11 +5,22 @@
 </head>
 <body>
     <script src="https://unpkg.com/vue@3"></script>
+    <table id="titleBar" border=0>
+        <tr>
+            <td id="titlePad">
+                <p id="title">2048</p>
+            </td>
+            <td id="scorePad">
+                <p id="scoreType">Score</p>
+                <p id="score"></p>
+        </tr>
+    </table>
 
+    <p id="gametitle">게임 시작은 엔터 키 입니다.</p>
     <div id="app">
-        <div class="backblock" v-for="index in divList"></div>
+        <div class="backblock" v-for="index in divList" id ="bb"></div>
     </div>
-
+    
     <script type="text/javascript" src="14w.js"></script>
 
     <script type="text/javascript">
