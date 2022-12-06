@@ -75,6 +75,16 @@ body{
     border-radius: 20;
     margin: 0px;
 }
+.block{            
+    background-color: burlywood;
+    text-align: center;   
+    line-height: 1.8;
+    font-size: 70;
+    font-family: cursive;
+    border-radius: 20;
+    margin: 0px;
+}
+
 #color2{
     background-color: rgb(244, 255, 197);
 }
