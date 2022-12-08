@@ -16,19 +16,25 @@ class Maps{
     
         this.div_app.appendChild(this.mapArray[X][Y].div_element);
     }
+
 //pop는 맨끝이니 오른쪽
 //shift는 맨 앞이니 왼쪽 
     moveright(){
-        let moveMaps = this.mapArray;
+        let moveBeforeMaps = this.mapArray;
         for(var i =0; i <4; i++){
             for(var j = 3; j >= 0; j--){
                 console.log(this.mapArray[j][i]);
-               // if(this.mapArray[j][i].Va == 0){
-                   // this.mapArray[j].pop();
-                  //  this.mapArray[j][i].Va = moveMaps[j-1][i].Va;
-                 //   this.mapArray[j][i].setMovePosition(j+1,i+1);
-                   // this.div_app.appendChild(this.mapArray[j][i].div_element);
-              //  }
+                if(this.mapArray[j][i].Va != 0){
+                    //pop();
+                    this.div_app.removeChild(this.mapArray[j][i].div_element);
+                    
+                    this.mapArray[j][i].Va = moveBeforeMaps[j+1][i].Va;
+                    this.mapArray[j][i].setActive(false);
+                    this.mapArray[j][i].setMovePosition(j+1,i);
+
+                    //push
+                    this.div_app.appendChild(this.mapArray[j][i].div_element);
+                }
             }
         }
     }
@@ -84,6 +90,9 @@ class Block{
         this.XPos = 20 + 150 *y;
         this.div_element.style.left = this.XPos;
         this.div_element.style.top = this.YPos;
+    }
+    removeblock(){
+     
     }
 
 }
