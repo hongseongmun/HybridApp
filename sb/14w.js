@@ -1,100 +1,79 @@
 class Maps{
     constructor(row, column){
         this.mapArray = Array.from(Array(row), ()=> Array(column).fill(0));
-        for(var i =0; i<4; i++){
-            for(var j =0; j < 4; j++){
+        for(var i =0; i< row; i++){
+            for(var j =0; j < column; j++){
                 this.mapArray[i][j] = new Block(0);
+                this.mapArray[i][j].setMovePosition(i,j);
             }
         }
-        this.div_app = document.getElementById("app");        
+        this.div_app = document.getElementById("app");
     }
 
     addRandomPositionBlock(X, Y){
-       this.mapArray[X][Y].changevalue(2);
-        this.mapArray[X][Y].setActive(true);
-        this.mapArray[X][Y].setPosition(X,Y);
-    
+        this.mapArray[X][Y].changevalue(2);
         this.div_app.appendChild(this.mapArray[X][Y].div_element);
     }
 
-//pop는 맨끝이니 오른쪽
-//shift는 맨 앞이니 왼쪽 
     moveright(){
-        let moveBeforeMaps = this.mapArray;
-        for(var i =0; i <4; i++){
+        let popMap;
+        for(var i =0; i < 4; i++){
             for(var j = 3; j >= 0; j--){
-                console.log(this.mapArray[j][i]);
                 if(this.mapArray[j][i].Va != 0){
-                    //pop();
-                    this.div_app.removeChild(this.mapArray[j][i].div_element);
-                    
-                    this.mapArray[j][i].Va = moveBeforeMaps[j+1][i].Va;
-                    this.mapArray[j][i].setActive(false);
-                    this.mapArray[j][i].setMovePosition(j+1,i);
+                    for(var k = j+1; k <=3; k++){
+                        if(this.mapArray[k][i].Va != 0){
+                        if(this.mapArray[k][i].Va == this.mapArray[k-1][i].Va){
+                           this.mapArray[k][i].changevalue(this.mapArray[k][i].Va * 2);
+                           this.div_app.removeChild(this.mapArray[k-1][i].div_element);
+                           popMap = this.mapArray[k].splice(i-1,1,new Block(0));
+                           this.div_app.appendChild(this.mapArray[k][i].div_element);
+                            break;
+                            }
+                        else break;  
+                        }
+                        else {
+                            popMap = this.mapArray[k].splice(i,1);
+                            this.mapArray[k].unshift(new Block(0));
+                            this.mapArray[k][i].setMovePosition(k,i); 
+                        }
+                        this.mapArray[k][i].setMovePosition(k,i);
+                    }
 
-                    //push
-                    this.div_app.appendChild(this.mapArray[j][i].div_element);
                 }
             }
-        }
+        } 
+        randomblock();
     }
-
-    moveleft(){
-
-    }
-
-    moveup(){
-
-    }
-
-    movedown(){
-
-    }
-
+    moveleft(){}
+    moveup(){}
+    movedown(){}
 }
 
 class Block{
     constructor(value){
         this.Va = value;
         this.Active = false;
-        this.XPos = 20;
-        this.YPos = 20;
+        this.nodeText = document.createTextNode(this.Va);
+        this.XPos;
+        this.YPos;
         this.div_element = document.createElement("div");
         this.div_element.setAttribute("class","block");
+        this.div_element.appendChild(this.nodeText);
     }
+
     changevalue(value){
+       this.div_element.removeChild(this.nodeText);
         this.Va = value;
-
-        var valuetext = document.createTextNode(value);
-        var newtext = document.createTextNode(value);
-
-        this.div_element.appendChild(valuetext);
-        this.div_element.replaceChild(newtext,valuetext);
-    }
-
-    setActive(isActivated){
-        this.Active = isActivated;        
-    }
-    
-    setPosition(x,y){
-        console.log(x,y);
-        this.XPos += 150*x;
-        this.YPos += 150*y;
-        this.div_element.style.left = this.XPos;
-        this.div_element.style.top = this.YPos;
-
+        this.nodeText = document.createTextNode(this.Va);
+        this.div_element.appendChild(this.nodeText);
     }
 
     setMovePosition(x,y){
-        this.XPos = 20 + 150 *x;
-        this.XPos = 20 + 150 *y;
+        this.XPos = 20+(150*x);
+        this.YPos = 20+(150*y);
         this.div_element.style.left = this.XPos;
         this.div_element.style.top = this.YPos;
     }
-    removeblock(){
-     
-    }
-
 }
 
 var map = new Maps(4,4);
@@ -102,14 +81,12 @@ var map = new Maps(4,4);
 function randomblock(){ 
  var X = parseInt(Math.random()*4);
  var Y = parseInt(Math.random()*4);
-
     if(map.mapArray[X][Y].Va == 0){
         map.addRandomPositionBlock(X, Y);
     }
     else  {
         randomblock();
     }
-
 }
 
 function keylog(e){
@@ -134,5 +111,4 @@ function keylog(e){
             break;
     }
 }
-
 window.onkeydown = keylog;
